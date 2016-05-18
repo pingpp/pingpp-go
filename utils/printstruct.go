@@ -101,7 +101,7 @@ func (c *Table) UseObj(obj interface{}) *Table {
 	return c
 }
 
-func (c *Table) Print() string {
+func (c *Table) Render() string {
 	t := gotabulate.Create(c.Rows)
 	t.SetHeaders(c.Header)
 	if c.MaxCellSize != 0 {
