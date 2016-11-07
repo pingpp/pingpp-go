@@ -4,6 +4,7 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"io"
+	"reflect"
 )
 
 func Round(v float32) int {
@@ -21,13 +22,44 @@ func Sha1Sign(data string) string {
 }
 
 //判断一个数组中是否有重复元素
-func IsRepeated(array []interface{}) (bool, interface{}) {
-	var m map[interface{}]struct{}
-	for _, elem := range array {
-		if _, exist := m[elem]; exist {
-			return true, elem
+func IsRepeated(data interface{}) (bool, interface{}) {
+	dv := reflect.ValueOf(data)
+	dt := reflect.TypeOf(data)
+	if dt.Kind() == reflect.Ptr {
+		if dv.IsNil() {
+			return false, nil
 		}
-		m[elem] = struct{}{}
+		dv = dv.Elem()
+		dt = dv.Type()
+	}
+	switch dt.Kind() {
+	case reflect.Array, reflect.Slice:
+		var m map[interface{}]int = make(map[interface{}]int)
+		for i := 0; i < dv.Len(); i++ {
+			elem := dv.Index(i).Interface()
+			if _, exist := m[elem]; exist {
+				return true, elem
+			}
+			m[elem] = 1
+		}
+	default:
+		return false, nil
 	}
 	return false, nil
+	// switch array := data.(type) {
+	// case []string:
+	// 	fallthrough
+	// case []int:
+	// 	var m map[interface{}]struct{}
+	// 	for _, elem := range array {
+	// 		if _, exist := m[elem]; exist {
+	// 			return true, elem
+	// 		}
+	// 		m[elem] = struct{}{}
+	// 	}
+	// 	return false, nil
+	// default:
+	// 	return false, nil
+	// }
+
 }
