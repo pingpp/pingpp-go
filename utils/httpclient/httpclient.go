@@ -104,9 +104,10 @@ func TimeoutDialer(cTimeout time.Duration, rwTimeout time.Duration) func(net, ad
 func NewTimeoutClient(connectTimeout time.Duration, readWriteTimeout time.Duration) *http.Client {
 	return &http.Client{
 		Transport: &http.Transport{
-			Dial:            TimeoutDialer(connectTimeout, readWriteTimeout),
-			Proxy:           http.ProxyFromEnvironment,
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			Dial:               TimeoutDialer(connectTimeout, readWriteTimeout),
+			Proxy:              http.ProxyFromEnvironment,
+			TLSClientConfig:    &tls.Config{InsecureSkipVerify: true},
+			DisableCompression: false,
 		},
 	}
 }
