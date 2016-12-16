@@ -46,20 +46,4 @@ func IsRepeated(data interface{}) (bool, interface{}) {
 		return false, nil
 	}
 	return false, nil
-	// switch array := data.(type) {
-	// case []string:
-	// 	fallthrough
-	// case []int:
-	// 	var m map[interface{}]struct{}
-	// 	for _, elem := range array {
-	// 		if _, exist := m[elem]; exist {
-	// 			return true, elem
-	// 		}
-	// 		m[elem] = struct{}{}
-	// 	}
-	// 	return false, nil
-	// default:
-	// 	return false, nil
-	// }
-
 }
