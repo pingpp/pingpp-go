@@ -107,7 +107,7 @@ func NewTimeoutClient(connectTimeout time.Duration, readWriteTimeout time.Durati
 			Dial:               TimeoutDialer(connectTimeout, readWriteTimeout),
 			Proxy:              http.ProxyFromEnvironment,
 			TLSClientConfig:    &tls.Config{InsecureSkipVerify: true},
-			DisableCompression: false,
+			DisableCompression: true,
 		},
 	}
 }
