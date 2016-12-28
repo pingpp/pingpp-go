@@ -93,7 +93,8 @@ func TimeoutDialer(cTimeout time.Duration, rwTimeout time.Duration) func(net, ad
 			addr = dnsCache.Get(addr)
 		}
 
-		conn, err := net.DialTimeout(netw, addr, cTimeout)
+		d := net.Dialer{Timeout: cTimeout, DualStack: true}
+		conn, err := d.Dial(netw, addr)
 		if err != nil {
 			return nil, err
 		}
