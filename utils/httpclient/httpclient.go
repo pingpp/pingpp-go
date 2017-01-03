@@ -109,6 +109,7 @@ func NewTimeoutClient(connectTimeout time.Duration, readWriteTimeout time.Durati
 			Proxy:              http.ProxyFromEnvironment,
 			TLSClientConfig:    &tls.Config{InsecureSkipVerify: true},
 			DisableCompression: true,
+			DisableKeepAlives:  true,
 		},
 	}
 }
